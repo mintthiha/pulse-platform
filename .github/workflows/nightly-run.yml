@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout to the repository
         uses: actions/checkout@v4
 
-      - name: Simulate test results and post to Pulse
+      - name: Post test results to Pulse API and fill database
         env:
           PULSE_API_URL: ${{ secrets.PULSE_API_URL }}
         run: |
