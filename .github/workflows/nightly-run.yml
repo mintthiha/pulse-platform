@@ -1,0 +1,26 @@
+name: Nightly Tests Run
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Simulate test results and post to Pulse
+        env:
+          PULSE_API_URL: ${{ secrets.PULSE_API_URL }}
+        run: |
+          curl -X POST "$PULSE_API_URL/api/runs" \
+            -H "Content-Type: application/json" \
+            -d '[
+              {"scenarioName":"OEMS-1234 - Test Bond Order limit price","ticketId":"OEMS-1234","status":"PASS","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":1200},
+              {"scenarioName":"OEMS-1234-1 - Test Bond Order market price","ticketId":"OEMS-1234","status":"PASS","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":980},
+              {"scenarioName":"OEMS-5678 - Test Equity Order creation","ticketId":"OEMS-5678","status":"FAIL","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":2300}
+            ]'
