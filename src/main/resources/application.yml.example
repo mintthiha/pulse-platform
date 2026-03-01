@@ -10,5 +10,10 @@ spring:
   flyway:
     enabled: true
 
+jira:
+  base-url: https://yoursite.atlassian.net
+  email: your@email.com
+  api-token: your-api-token-here
+
 server:
   port: 8080
