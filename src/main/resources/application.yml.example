@@ -20,5 +20,8 @@ github:
   owner: your-github-username
   repo: pulse-platform  
 
+openai:
+  api-key: your-openai-api-key  
+
 server:
   port: 8080
