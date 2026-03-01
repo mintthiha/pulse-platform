@@ -16,21 +16,27 @@ public class TestResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "scenario_name", nullable = false, length = 500)
-    private String scenarioName;
-
-    @Column(name = "ticket_id", nullable = false, length = 50)
-    private String ticketId;
-
-    @Column(name = "status", nullable = false, length = 10)
-    private String status;
+    @Column(name = "action_tags", columnDefinition = "text[]")
+    private String[] actionTags;
 
     @Column(name = "branch", nullable = false, length = 255)
     private String branch;
 
-    @Column(name = "run_timestamp", nullable = false)
-    private LocalDateTime runTimestamp;
-
     @Column(name = "duration_ms")
     private Long durationMs;
+
+    @Column(name = "report_tags", columnDefinition = "text[]")
+    private String[] reportTags;
+
+    @Column(name = "run_timestamp", nullable = false)
+    private LocalDateTime runTimestamp;
+    
+    @Column(name = "scenario_name", nullable = false, length = 500)
+    private String scenarioName;
+
+    @Column(name = "status", nullable = false, length = 10)
+    private String status;
+    
+    @Column(name = "ticket_id", nullable = false, length = 50)
+    private String ticketId;
 }
