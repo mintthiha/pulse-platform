@@ -15,5 +15,10 @@ jira:
   email: your@email.com
   api-token: your-api-token-here
 
+github:
+  token: your-github-token-here
+  owner: your-github-username
+  repo: pulse-platform  
+
 server:
   port: 8080
