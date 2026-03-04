@@ -30,7 +30,7 @@ public class BuildService {
                 .header("Authorization", "Bearer " + githubProperties.getToken())
                 .header("Accept", "application/vnd.github+json")
                 .body(Map.of(
-                        "ref", branch,
+                        "ref", "main",
                         "inputs", Map.of(
                                 "branch", branch,
                                 "tests", tests != null ? tests : ""

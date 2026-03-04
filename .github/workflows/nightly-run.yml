@@ -22,5 +22,8 @@ jobs:
           -d '[
             {"scenarioName":"OEMS-1234 - Test Bond Order limit price","ticketId":"OEMS-1234","status":"PASS","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":1200,"reportTags":["PWM"],"actionTags":["BondOrder"]},
             {"scenarioName":"OEMS-1234-1 - Test Bond Order market price","ticketId":"OEMS-1234","status":"PASS","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":980,"reportTags":["PWM"],"actionTags":["BondOrder"]},
-            {"scenarioName":"OEMS-5678 - Test Equity Order creation","ticketId":"OEMS-5678","status":"FAIL","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":2300,"reportTags":["Technology"],"actionTags":["EquityOrder"]}
+            {"scenarioName":"OEMS-5678 - Test Equity Order creation","ticketId":"OEMS-5678","status":"FAIL","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":2300,"reportTags":["Technology"],"actionTags":["EquityOrder"]},
+            {"scenarioName":"SCRUM-5 - Test Equity Order cancellation","ticketId":"SCRUM-5","status":"PASS","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":1500,"reportTags":["Technology"],"actionTags":["EquityOrder"]},
+            {"scenarioName":"SCRUM-5-1 - Test Equity Order cancellation confirmation","ticketId":"SCRUM-5","status":"PASS","branch":"release/1.0","runTimestamp":"'"$(date -u +%Y-%m-%dT%H:%M:%S)"'","durationMs":980,"reportTags":["Technology"],"actionTags":["EquityOrder"]}
           ]'
+          
