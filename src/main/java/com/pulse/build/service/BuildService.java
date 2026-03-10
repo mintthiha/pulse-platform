@@ -12,16 +12,12 @@ import java.util.Map;
 public class BuildService {
 
     private final GithubProperties githubProperties;
+    private final RestClient restClient;
 
-    /**
-     * Triggers the regression workflow on the specified branch in the testing repo.
-     * Passes the branch and comma-separated test list as workflow inputs.
-     *
-     * @param branch the branch to run the workflow on
-     * @param tests  comma-separated list of test scenario names to run
-     */
     public void triggerBuild(String branch, String tests) {
-        RestClient restClient = RestClient.create();
+        if (branch == null || branch.isBlank()) {
+            throw new IllegalArgumentException("Branch must not be null or empty");
+        }
 
         restClient.post()
                 .uri("https://api.github.com/repos/" + githubProperties.getOwner()
