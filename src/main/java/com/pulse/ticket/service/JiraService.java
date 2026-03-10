@@ -13,6 +13,7 @@ import java.util.Map;
 public class JiraService {
 
     private final JiraProperties jiraProperties;
+    private final RestClient restClient;
 
     /**
      * Builds the Basic Auth header value using email and API token.
@@ -32,8 +33,6 @@ public class JiraService {
      * @return map containing the raw Jira API response
      */
     public Map<String, Object> getTicket(String ticketId) {
-        RestClient restClient = RestClient.create();
-
         return restClient.get()
                 .uri(jiraProperties.getBaseUrl() + "/rest/api/3/issue/" + ticketId)
                 .header("Authorization", buildAuthHeader())

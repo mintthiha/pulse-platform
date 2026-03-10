@@ -35,7 +35,7 @@ class BuildServiceTest {
     @InjectMocks
     private BuildService buildService;
 
-    // Should trigger the GitHub Actions workflow when valid inputs are provided
+    // This should trigger the GitHub Actions workflow when valid inputs are provided
     @Test
     void triggerBuild_callsGitHubApiWithCorrectParameters() {
         when(githubProperties.getOwner()).thenReturn("mintthiha");
@@ -53,7 +53,7 @@ class BuildServiceTest {
         verify(requestBodySpec).retrieve();
     }
  
-    // Should throw when branch is null
+    // This should throw an exception when branch is null
     @Test
     void triggerBuild_throwsWhenBranchIsNull() {
         assertThatThrownBy(() -> buildService.triggerBuild(null, "some tests"))
@@ -61,7 +61,7 @@ class BuildServiceTest {
                 .hasMessage("Branch must not be null or empty");
     }
 
-    // Should throw when branch is blank
+    // This should throw an exception when branch is blank
     @Test
     void triggerBuild_throwsWhenBranchIsBlank() {
         assertThatThrownBy(() -> buildService.triggerBuild("  ", "some tests"))
@@ -69,7 +69,7 @@ class BuildServiceTest {
                 .hasMessage("Branch must not be null or empty");
     }
 
-    // Should use empty string for tests when null is passed
+    // This should use empty string for tests when null is passed
     @Test
     void triggerBuild_handlesNullTestsGracefully() {
         when(githubProperties.getOwner()).thenReturn("mintthiha");
