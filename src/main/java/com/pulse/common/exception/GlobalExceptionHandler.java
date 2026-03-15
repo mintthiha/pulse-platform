@@ -2,6 +2,7 @@ package com.pulse.common.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -50,6 +51,28 @@ public class GlobalExceptionHandler {
                 "status", 500,
                 "error", "Internal Server Error",
                 "message", "An unexpected error occurred",
+                "timestamp", LocalDateTime.now().toString()
+        ));
+    }
+
+
+    /**
+     * Handles request body validation errors from @Valid annotations.
+     * Returns 400 Bad Request with the first failing field and its message.
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .findFirst()
+                .orElse("Validation failed");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                "status", 400,
+                "error", "Bad Request",
+                "message", message,
                 "timestamp", LocalDateTime.now().toString()
         ));
     }

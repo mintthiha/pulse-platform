@@ -1,6 +1,9 @@
 package com.pulse.auth.controller;
 
+import com.pulse.auth.dto.AuthRequest;
 import com.pulse.auth.service.AuthService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +24,8 @@ public class AuthController {
      * @return 200 OK with success message
      */
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody Map<String, String> body) {
-        authService.register(body.get("username"), body.get("password"));
+    public ResponseEntity<String> register(@Valid @RequestBody AuthRequest request) {
+        authService.register(request.getUsername(), request.getPassword());
         return ResponseEntity.ok("User registered successfully");
     }
 
@@ -33,8 +36,8 @@ public class AuthController {
      * @return 200 OK with JWT token string
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> body) {
-        String token = authService.login(body.get("username"), body.get("password"));
+    public ResponseEntity<String> login(@Valid @RequestBody AuthRequest request) {
+        String token = authService.login(request.getUsername(), request.getPassword());
         return ResponseEntity.ok(token);
     }
 }

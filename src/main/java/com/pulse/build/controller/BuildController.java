@@ -1,6 +1,9 @@
 package com.pulse.build.controller;
 
+import com.pulse.build.dto.BuildRequest;
 import com.pulse.build.service.BuildService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +25,8 @@ public class BuildController {
      * @return 200 OK when the build is successfully triggered
      */
     @PostMapping("/trigger")
-    public ResponseEntity<String> triggerBuild(@RequestBody Map<String, String> body) {
-        String branch = body.get("branch");
-        String tests = body.get("tests");
-
-        if (branch == null || branch.isBlank()) {
-            throw new IllegalArgumentException("Branch is required");
-        }
-
-        buildService.triggerBuild(branch, tests);
+    public ResponseEntity<String> triggerBuild(@Valid @RequestBody BuildRequest request) {
+        buildService.triggerBuild(request.getBranch(), request.getTests());
         return ResponseEntity.ok("Build triggered successfully");
     }
 }
