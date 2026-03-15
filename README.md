@@ -195,4 +195,4 @@ Test scenarios and GitHub Actions workflows live in [pulse-demo-tests](https://g
 
 ## License
 
-MIT
+Check the MIT license file located in the root.
