@@ -14,7 +14,7 @@ import java.util.Map;
 public class PRService {
 
     private final GithubProperties githubProperties;
-
+    private final RestClient restClient;
     /**
      * Fetches all open pull requests from the configured GitHub repository.
      * Filters results to only return PRs whose title or branch contains the ticket ID.
@@ -24,7 +24,6 @@ public class PRService {
      */
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> getPRsForTicket(String ticketId) {
-        RestClient restClient = RestClient.create();
 
         List<Map<String, Object>> allPRs = restClient.get()
                 .uri("https://api.github.com/repos/" + githubProperties.getOwner()
