@@ -1,10 +1,15 @@
 package com.pulse.ai.controller;
 
+import com.pulse.ai.dto.AIRequest;
+import com.pulse.ai.dto.AIResponse;
 import com.pulse.ai.service.AIService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,15 +28,17 @@ public class AIController {
      * @return map containing suggested reportTags and actionTags
      */
     @PostMapping("/suggest-tags")
-    public ResponseEntity<Map<String, Object>> suggestTags(@RequestBody Map<String, String> body) {
-        String ticketDescription = body.get("ticketDescription");
-        String prDiff = body.get("prDiff");
+    public ResponseEntity<AIResponse> suggestTags(@Valid @RequestBody AIRequest request) {
+        Map<String, Object> suggestions = aiService.suggestTags(
+                request.getTicketDescription(),
+                request.getPrDiff()
+        );
 
-        if (ticketDescription == null || ticketDescription.isBlank()) {
-            throw new IllegalArgumentException("The ticket description is required");
-        }
+        @SuppressWarnings("unchecked")
+        List<String> reportTags = (List<String>) suggestions.get("reportTags");
+        @SuppressWarnings("unchecked")
+        List<String> actionTags = (List<String>) suggestions.get("actionTags");
 
-        Map<String, Object> suggestions = aiService.suggestTags(ticketDescription, prDiff);
-        return ResponseEntity.ok(suggestions);
+        return ResponseEntity.ok(new AIResponse(reportTags, actionTags));
     }
 }
